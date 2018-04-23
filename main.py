@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 import numpy as np
+import csv
 
 trainingData = sys.argv[1]
 testData = sys.argv[2]
@@ -19,5 +20,11 @@ testNumColumns = testData.shape[1]
 print(testNumRows)
 print(testNumColumns)
 
-print(trainingData)
-print(testData)
+#print(trainingData)
+#print(testData)
+
+result = [['id', 'sentiment'], [0, 3], [1, 4]]
+solution = open('solution.csv', 'w')
+with solution:
+   writer = csv.writer(solution)
+   writer.writerows(result)
