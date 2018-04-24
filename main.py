@@ -10,16 +10,16 @@ data = pd.read_csv(trainingData, sep=',', quotechar='"', header=0)
 trainingData=data.as_matrix()
 trainNumRows = trainingData.shape[0]
 trainNumColumns = trainingData.shape[1]
-print(trainNumRows)
-print(trainNumColumns)
+#print(trainNumRows)
+#print(trainNumColumns)
 
 #data = pd.read_csv(testData, sep=',', error_bad_lines=False, header=None)
 data = pd.read_csv(testData, sep=',', quotechar='"', header=0)
 testData=data.as_matrix()
 testNumRows = testData.shape[0]
 testNumColumns = testData.shape[1]
-print(testNumRows)
-print(testNumColumns)
+#print(testNumRows)
+#print(testNumColumns)
 
 #print(trainingData)
 #print(testData)
@@ -73,29 +73,15 @@ for id, text in testData:
         probThree += countThree / (countZero + countOne + countTwo + countThree + countFour)
         probFour += countFour / (countZero + countOne + countTwo + countThree + countFour)
 
-    # Make this more efficient
-    prediction = max(probZero, probOne, probTwo, probThree, probFour)
-    if prediction == probZero:
-        prediction = 0
-    elif prediction == probOne:
-        prediction = 1
-    elif prediction == probTwo:
-        prediction = 2
-    elif prediction == probThree:
-        prediction = 3
-    elif prediction == probZero:
-        prediction = 4
-    else:
-        prediction == 3
+    prediction = np.array([probZero, probOne, probTwo, probThree, probFour]).argmax(axis = 0)
     #print(prediction)
-
     # Use id to store?
     result[int(id)] = prediction
 
 #print(result)
 
 #result = [['id', 'sentiment'], [0, 3], [1, 4]]
-solution = open('solution1.csv', 'w')
+solution = open('solution2.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
