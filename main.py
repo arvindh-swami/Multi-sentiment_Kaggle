@@ -64,7 +64,6 @@ for id, text in testData:
     for word in text.split():
         word = word.lower()
         if word in redundantFeatures:
-            print("Redundant Feature")
             continue
         countZero = zero.get(word, 0) + 1.0
         countOne = one.get(word, 0) + 1.0
@@ -86,7 +85,7 @@ for id, text in testData:
 #print(result)
 
 #result = [['id', 'sentiment'], [0, 3], [1, 4]]
-solution = open('solution2.csv', 'w')
+solution = open('solution3.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
