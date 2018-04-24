@@ -13,7 +13,8 @@ trainNumColumns = trainingData.shape[1]
 print(trainNumRows)
 print(trainNumColumns)
 
-data = pd.read_csv(testData, sep=',', error_bad_lines=False, header=None)
+#data = pd.read_csv(testData, sep=',', error_bad_lines=False, header=None)
+data = pd.read_csv(testData, sep=',', quotechar='"', header=0)
 testData=data.as_matrix()
 testNumRows = testData.shape[0]
 testNumColumns = testData.shape[1]
@@ -94,8 +95,9 @@ for id, text in testData:
 #print(result)
 
 #result = [['id', 'sentiment'], [0, 3], [1, 4]]
-solution = open('solution.csv', 'w')
+solution = open('solution1.csv', 'w')
 with solution:
    writer = csv.writer(solution)
+   writer.writerow(["id", "sentiment"])
    for key, value in result.items():
        writer.writerow([key, value])
