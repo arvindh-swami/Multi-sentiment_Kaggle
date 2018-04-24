@@ -37,9 +37,9 @@ trainNumRows = trainingData.shape[0]
 trainNumColumns = trainingData.shape[1]
 
 for id, text, sentiment in trainingData:
-    text = text.replace(';', '')
+    '''text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')
+    text = text.replace('\'', '')'''
 
     for word in text.split():
         #word = word.lower()
@@ -60,15 +60,52 @@ result = {}
 #for i in range(testNumRows):
 #    result.append(0)
 
+# Remove features with low frequency
+'''remove = []
+for i in zero:
+    if zero.get(i) < 3:
+        remove.append(i)
+for i in remove:
+    del zero[i]
+
+remove = []
+for i in one:
+    if one.get(i) < 3:
+        remove.append(i)
+for i in remove:
+    del one[i]
+
+remove = []
+for i in two:
+    if two.get(i) < 3:
+        remove.append(i)
+for i in remove:
+    del two[i]
+
+remove = []
+for i in three:
+    if three.get(i) < 3:
+        remove.append(i)
+for i in remove:
+    del three[i]
+
+remove = []
+for i in four:
+    if four.get(i) < 3:
+        remove.append(i)
+for i in remove:
+    del four[i]
+'''
+
 for id, text in testData:
     if id == "id":
         continue
 
     probZero, probOne, probTwo, probThree, probFour = 0.0, 0.0, 0.0, 0.0, 0.0
 
-    text = text.replace(';', '')
+    '''text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')
+    text = text.replace('\'', '')'''
 
     for word in text.split():
         #word = word.lower()
@@ -112,9 +149,9 @@ for id, text, sentiment in trainingData:
 
     probZero, probOne, probTwo, probThree, probFour = 0.0, 0.0, 0.0, 0.0, 0.0
 
-    text = text.replace(';', '')
+    '''text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')
+    text = text.replace('\'', '')'''
 
     for word in text.split():
         #word = word.lower()
