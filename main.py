@@ -46,7 +46,7 @@ for id, text, sentiment in trainingData:
         elif sentiment == 4:
             four[word] = four.get(word, 0) + 1
 
-redundantFeatures = ["the", "a", "an", "of", "to", "in", "its", "on", "is", "by", "from", "it", "and"]
+redundantFeatures = ["the", "a", "an", "of", "to", "in", "its", "on", "is", "by", "from", "it", "and", "with", "for", "off"]
 result = {}
 #for i in range(testNumRows):
 #    result.append(0)
