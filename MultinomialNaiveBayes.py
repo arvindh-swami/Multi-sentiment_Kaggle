@@ -32,17 +32,17 @@ three = {} # Positive
 four = {} # Very Positive
 redundantFeatures = ["the", "a", "an", "of", "to", "in", "its", "on", "is", "by", "from", "it", "and", "with", "for", "off"]
 
-trainingData = ogX[:size]
+'''trainingData = ogX[:size]
 trainNumRows = trainingData.shape[0]
-trainNumColumns = trainingData.shape[1]
+trainNumColumns = trainingData.shape[1]'''
 
 for id, text, sentiment in trainingData:
-    '''text = text.replace(';', '')
+    text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')'''
+    text = text.replace('\'', '')
 
     for word in text.split():
-        #word = word.lower()
+        word = word.lower()
         if word in redundantFeatures:
             continue
         if sentiment == 0:
@@ -103,12 +103,12 @@ for id, text in testData:
 
     probZero, probOne, probTwo, probThree, probFour = 0.0, 0.0, 0.0, 0.0, 0.0
 
-    '''text = text.replace(';', '')
+    text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')'''
+    text = text.replace('\'', '')
 
     for word in text.split():
-        #word = word.lower()
+        word = word.lower()
         if word in redundantFeatures:
             continue
         countZero = zero.get(word, 0) + 1.0
@@ -131,16 +131,16 @@ for id, text in testData:
 #print(result)
 
 #result = [['id', 'sentiment'], [0, 3], [1, 4]]
-solution = open('solution3.csv', 'w')
+solution = open('solution4.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
    for key, value in result.items():
        writer.writerow([key, value])
 
-trainingData = ogX[:-size]
+'''trainingData = ogX[:-size]
 trainNumRows = trainingData.shape[0]
-trainNumColumns = trainingData.shape[1]
+trainNumColumns = trainingData.shape[1]'''
 
 correct = 0.0
 for id, text, sentiment in trainingData:
@@ -149,12 +149,12 @@ for id, text, sentiment in trainingData:
 
     probZero, probOne, probTwo, probThree, probFour = 0.0, 0.0, 0.0, 0.0, 0.0
 
-    '''text = text.replace(';', '')
+    text = text.replace(';', '')
     text = text.replace(',', '')
-    text = text.replace('\'', '')'''
+    text = text.replace('\'', '')
 
     for word in text.split():
-        #word = word.lower()
+        word = word.lower()
         if word in redundantFeatures:
             continue
         countZero = zero.get(word, 0) + 1.0
