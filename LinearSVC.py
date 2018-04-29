@@ -14,7 +14,7 @@ from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
 from sklearn import linear_model
-
+from sklearn.linear_model import PassiveAggressiveClassifier
 
 trainingData = sys.argv[1]
 testData = sys.argv[2]
@@ -51,11 +51,15 @@ model.fit(train_data_features, trainingData["sentiment"])
 result = model.predict(test_data_features)
 '''
 
+model = PassiveAggressiveClassifier(random_state=0)
+model.fit(train_data_features, trainingData["sentiment"])
+result = model.predict(test_data_features)
+
 print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution8.csv', 'w')
+solution = open('solution9.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
