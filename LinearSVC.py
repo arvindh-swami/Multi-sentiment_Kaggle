@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import sys
 import pandas as pd
 import numpy as np
@@ -15,7 +13,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
-
+from sklearn import linear_model
 
 
 trainingData = sys.argv[1]
@@ -43,28 +41,21 @@ vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor =
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 test_data_features = vectorizer.transform(testData["text"])
 
-'''
-# Train Classifier
-forest = RandomForestClassifier(n_estimators = 100)
-forest = forest.fit(train_data_features, trainingData["sentiment"])
-result = forest.predict(test_data_features)
-'''
-
 model = LinearSVC()
 model.fit(train_data_features, trainingData["sentiment"])
 result = model.predict(test_data_features)
 
 '''
-forest = RandomForestClassifier(n_estimators = 100)
-forest = forest.fit(train_data_features, trainingData["sentiment"])
-result = forest.predict(test_data_features)
+model = linear_model.SGDClassifier()
+model.fit(train_data_features, trainingData["sentiment"])
+result = model.predict(test_data_features)
 '''
 
 print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution7.csv', 'w')
+solution = open('solution8.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
