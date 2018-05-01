@@ -38,7 +38,10 @@ testNumColumns = testData.shape[1]
 
 
 # Create bag of words
-vectorizer = CountVectorizer(analyzer = "word", token_pattern=r"(?u)\b\w\w+\b|!|\?|\"|\'", tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+#vectorizer = CountVectorizer(analyzer = "word", token_pattern=r"(?u)\b\w\w+\b|!|\?|\"|\'", tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+#vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+train_data_features = vectorizer.fit_transform(trainingData["text"])
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 test_data_features = vectorizer.transform(testData["text"])
 
@@ -65,7 +68,7 @@ print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution10.csv', 'w')
+solution = open('solution11.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
