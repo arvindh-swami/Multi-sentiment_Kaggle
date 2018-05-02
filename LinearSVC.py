@@ -29,7 +29,7 @@ trainNumColumns = trainingData.shape[1]
 #print(trainNumRows)
 #print(trainNumColumns)
 ogX = trainingData
-size = int(trainNumRows*(50.0/100))
+size = int(trainNumRows*(90.0/100))
 
 #data = pd.read_csv(testData, sep=',', error_bad_lines=False, header=None)
 testData = pd.read_csv(testData, sep=',', quotechar='"', header=0)
@@ -38,13 +38,14 @@ testNumColumns = testData.shape[1]
 #print(testNumRows)
 #print(testNumColumns)c
 
-
+#trainingData = trainingData[:size]
+#print(trainingData.shape[0])
 
 # Create bag of words
 #vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
-#vectorizer = TfidfVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+vectorizer = TfidfVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
 #vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,8), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
-vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english')
+#vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english')
 
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 train_data_features = vectorizer.fit_transform(trainingData["text"])
@@ -73,10 +74,18 @@ print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution14.csv', 'w')
+solution = open('solution15.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
    for value in result:
        writer.writerow([i, value])
        i += 1
+
+result = model.predict(train_data_features)
+correct = 0.0
+for i in range(len(result)):
+    if result[i] == trainingData["sentiment"][i]:
+        correct += 1
+
+print(correct/len(result))
