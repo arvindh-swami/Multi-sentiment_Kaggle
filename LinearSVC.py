@@ -18,6 +18,13 @@ from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.neural_network import MLPClassifier
 
 from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.naive_bayes import BernoulliNB, MultinomialNB
+
+import nltk
+nltk.download('punkt')
+nltk.download('wordnet')
+from nltk import word_tokenize
+from nltk.stem import WordNetLemmatizer
 
 
 trainingData = sys.argv[1]
@@ -41,11 +48,17 @@ testNumColumns = testData.shape[1]
 #trainingData = trainingData[:size]
 #print(trainingData.shape[0])
 
+class LemmaTokenizer(object): #tokenizer for CountVectorizer for stemming using Wordnet Corpora
+      def __init__(self):
+            self.wnl = WordNetLemmatizer()
+      def __call__(self, doc):
+            return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
+
 # Create bag of words
 #vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
-vectorizer = TfidfVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
 #vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,8), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
 #vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english')
+vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = LemmaTokenizer(), preprocessor = None, stop_words = 'english')
 
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 train_data_features = vectorizer.fit_transform(trainingData["text"])
@@ -74,7 +87,7 @@ print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution15.csv', 'w')
+solution = open('solution16.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
