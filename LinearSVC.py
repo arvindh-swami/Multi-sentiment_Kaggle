@@ -11,7 +11,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import svm
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.svm import LinearSVC
 from sklearn import linear_model
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -20,12 +20,11 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.naive_bayes import BernoulliNB, MultinomialNB
 
-import nltk
+'''import nltk
 nltk.download('punkt')
-nltk.download('wordnet')
+nltk.download('wordnet')'''
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
-
 
 trainingData = sys.argv[1]
 testData = sys.argv[2]
@@ -64,7 +63,8 @@ train_data_features = vectorizer.fit_transform(trainingData["text"])
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 test_data_features = vectorizer.transform(testData["text"])
 
-model = LinearSVC()
+#model = LinearSVC()
+model =  LinearSVC(multi_class = 'crammer_singer')
 model.fit(train_data_features, trainingData["sentiment"])
 result = model.predict(test_data_features)
 
@@ -87,7 +87,7 @@ print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution16.csv', 'w')
+solution = open('solution17.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
