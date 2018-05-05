@@ -3,21 +3,13 @@ import pandas as pd
 import numpy as np
 import csv
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer, HashingVectorizer
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import SGDClassifier
-from sklearn.model_selection import GridSearchCV
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn import svm
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.svm import LinearSVC
 from sklearn import linear_model
-from sklearn.linear_model import PassiveAggressiveClassifier
-from sklearn.neural_network import MLPClassifier
-
-from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.naive_bayes import BernoulliNB, MultinomialNB
 
 '''import nltk
@@ -54,10 +46,8 @@ class LemmaTokenizer(object): #tokenizer for CountVectorizer for stemming using 
             return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
 
 # Create bag of words
-#vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
-#vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,8), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
-#vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = None, preprocessor = None, stop_words = 'english')
-vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,3), tokenizer = LemmaTokenizer(), preprocessor = None, stop_words = 'english')
+#vectorizer = CountVectorizer(analyzer = "word", ngram_range = (1,4), tokenizer = None, preprocessor = None, stop_words = 'english', max_features = 5000)
+vectorizer = HashingVectorizer(analyzer = "word", ngram_range = (1,4), tokenizer = LemmaTokenizer(), preprocessor = None, stop_words = 'english')
 
 train_data_features = vectorizer.fit_transform(trainingData["text"])
 train_data_features = vectorizer.fit_transform(trainingData["text"])
@@ -65,29 +55,16 @@ test_data_features = vectorizer.transform(testData["text"])
 
 #model = LinearSVC()
 model =  LinearSVC(multi_class = 'crammer_singer')
+#model = MLPRegressor(hidden_layer_sizes=(100, ), activation='relu', solver='adam', alpha=0.0001, batch_size='auto', learning_rate='constant', learning_rate_init=0.001, power_t=0.5, max_iter=200, shuffle=True, random_state=None, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True, early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+#model = LinearSVC(penalty='l2', loss='hinge', dual=True, tol=0.0001, C=1.0, multi_class='crammer_singer', fit_intercept=True, intercept_scaling=1, class_weight=None, verbose=0, random_state=None, max_iter=1000)
 model.fit(train_data_features, trainingData["sentiment"])
 result = model.predict(test_data_features)
-
-'''model = MLPClassifier()
-model.fit(train_data_features, trainingData["sentiment"])
-result = model.predict(test_data_features)'''
-
-'''
-model = linear_model.SGDClassifier()
-model.fit(train_data_features, trainingData["sentiment"])
-result = model.predict(test_data_features)
-
-
-model = PassiveAggressiveClassifier(random_state=0)
-model.fit(train_data_features, trainingData["sentiment"])
-result = model.predict(test_data_features)
-'''
 
 print(result)
 
 #result = [1,2]
 i = 0
-solution = open('solution17.csv', 'w')
+solution = open('solution.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
