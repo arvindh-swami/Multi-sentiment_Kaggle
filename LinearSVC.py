@@ -34,7 +34,7 @@ testData = pd.read_csv(testData, sep=',', quotechar='"', header=0)
 testNumRows = testData.shape[0]
 testNumColumns = testData.shape[1]
 #print(testNumRows)
-#print(testNumColumns)c
+#print(testNumColumns)
 
 #trainingData = trainingData[:size]
 #print(trainingData.shape[0])
@@ -54,9 +54,9 @@ train_data_features = vectorizer.fit_transform(trainingData["text"])
 test_data_features = vectorizer.transform(testData["text"])
 
 #model = LinearSVC()
-model =  LinearSVC(multi_class = 'crammer_singer')
+#model =  LinearSVC(multi_class = 'crammer_singer')
 #model = MLPRegressor(hidden_layer_sizes=(100, ), activation='relu', solver='adam', alpha=0.0001, batch_size='auto', learning_rate='constant', learning_rate_init=0.001, power_t=0.5, max_iter=200, shuffle=True, random_state=None, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True, early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
-#model = LinearSVC(penalty='l2', loss='hinge', dual=True, tol=0.0001, C=1.0, multi_class='crammer_singer', fit_intercept=True, intercept_scaling=1, class_weight=None, verbose=0, random_state=None, max_iter=1000)
+model = LinearSVC(penalty='l2', loss='hinge', dual=True, tol=0.0001, C=1.0, multi_class='crammer_singer', fit_intercept=True, intercept_scaling=1, class_weight=None, verbose=0, random_state=None, max_iter=1000)
 model.fit(train_data_features, trainingData["sentiment"])
 result = model.predict(test_data_features)
 

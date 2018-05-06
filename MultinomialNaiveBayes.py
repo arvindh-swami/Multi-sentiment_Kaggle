@@ -25,6 +25,7 @@ testNumColumns = testData.shape[1]
 
 #print(trainingData)
 #print(testData)
+
 zero = {} # Very Negative
 one = {} # Negative
 two = {} # Neutral
@@ -61,7 +62,7 @@ result = {}
 #    result.append(0)
 
 # Remove features with low frequency
-'''remove = []
+remove = []
 for i in zero:
     if zero.get(i) < 3:
         remove.append(i)
@@ -95,7 +96,6 @@ for i in four:
         remove.append(i)
 for i in remove:
     del four[i]
-'''
 
 for id, text in testData:
     if id == "id":
@@ -131,7 +131,7 @@ for id, text in testData:
 #print(result)
 
 #result = [['id', 'sentiment'], [0, 3], [1, 4]]
-solution = open('solution4.csv', 'w')
+solution = open('solution.csv', 'w')
 with solution:
    writer = csv.writer(solution)
    writer.writerow(["id", "sentiment"])
